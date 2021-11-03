@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "..\\..\\..\\..\\..\\Users\\Esteban Cerrato\\Documents\\PW1"
+		},
+		{
+			"path": "..\\..\\Tarea1"
+		},
+		{
+			"path": "..\\.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Tarea1"
+	}
+}
