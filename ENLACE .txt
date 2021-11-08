@@ -1,6 +1,12 @@
-https://proyectofinalweb1-esteban-cerrato.000webhostapp.com/SegundoParcial/Tarea1/principal.php
+https://proyectofinalweb1-esteban-cerrato.000webhostapp.com/SegundoParcial/Tarea2_SegundoParcial/principal.php
+
 
 CREDENCIALES
 ilsw
 olimpia
 
+Usuario con contraseña temporal
+usuario: cramirez
+contraseña: #@M[HR`A:O&&m6]
+
+En empleado puede crear uno nuevo y en usuario asignarle un nuevo usuario 

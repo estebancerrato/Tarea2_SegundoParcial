@@ -73,8 +73,6 @@
 		    <li><a href="form_empleado.php">Empleado</a></li> 
 			<li><a href="form_alumno.php">Alumno</a></li>
 			<li><a href="form_usuario.php"> Usuario</a></li>
-			<li><a href="form_accesos.php">Accesos</a></li>
-			<li><a href="form_grado.php">Grado</a></li>
 			<li><a href="principal.php">SALIR</a></li>
         </ul>
     </nav>

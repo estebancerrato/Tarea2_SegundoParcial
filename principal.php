@@ -1,4 +1,7 @@
 <?php
+session_start();
+
+
 
 include('conexion.php');
 $accion=(isset($_POST["accion"])?$_POST["accion"]:"");
@@ -8,30 +11,59 @@ $accion=(isset($_POST["accion"])?$_POST["accion"]:"");
 if($accion=="ingreso"){
 	
 	$usuario = $_POST["txtusuario"];
+	$_SESSION["usuario"] = $usuario;
+
 	$clave = $_POST["txtClave"];
-
 	
-	//Consultar en la base de datos si el usuario y la contraseña coinciden, si encuentra un registro significa que puede iniciar sesion
-	$sql = "SELECT * FROM tbl_usuario WHERE usuario_codigo=  '$usuario' AND usuario_clave = '$clave'" ;
-	$validar_usuario = mysqli_query($conexion,$sql);
-	if(mysqli_num_rows($validar_usuario) == 1){
-		if($data = mysqli_fetch_assoc(mysqli_query($conexion,$sql))){
+	$sql = "SELECT usuario_claveTemp_activa FROM tbl_usuario2 WHERE usuario_codigo=  '$usuario'";
+	if($data = mysqli_fetch_assoc(mysqli_query($conexion,$sql))){
+		if($data['usuario_claveTemp_activa'] == '1'){
+			 // echo "<script> alert('tiene clave temporal') </script>";
+			 $sql = "SELECT * FROM tbl_usuario2 WHERE usuario_codigo=  '$usuario' AND usuario_clave_temporal = '$clave'" ;
+			 $validar_usuario = mysqli_query($conexion,$sql);
+			 if(mysqli_num_rows($validar_usuario) == 1){
+				echo "<meta http-equiv='Refresh' content='0;url=form_crear_contrasena.php'>";
+			 }else{
+				echo "<script> alert('Usuario o contraseña incorrecta') </script>";
+			 }
 
-			
-			//Validar si el usuario esta ACTIVO o INACTIVO
-			if($data['usuario_estado'] == 'ACTIVO'){
-				echo "<script> alert('Ingreso exitoso') </script>";
+		}else{
 
-				echo "<meta http-equiv='Refresh' content='0;url=form_usuario.php'>";
-			}else{
-				echo "<script> alert('El usuario que intenta ingresar se encuentra en estado INACTIVO') </script>";
-			}
-			
-		}				
+			//Consultar en la base de datos si el usuario y la contraseña coinciden, si encuentra un registro significa que puede iniciar sesion
+			$sql = "SELECT * FROM tbl_usuario2 WHERE usuario_codigo=  '$usuario' AND usuario_clave = '$clave'" ;
+			$validar_usuario = mysqli_query($conexion,$sql);
+			if(mysqli_num_rows($validar_usuario) == 1){
+				if($data = mysqli_fetch_assoc(mysqli_query($conexion,$sql))){
+
+					
+					//Validar si el usuario esta ACTIVO o INACTIVO
+					if($data['usuario_estado'] == 'ACTIVO'){
+						echo "<script> alert('Ingreso exitoso') </script>";
+
+						echo "<meta http-equiv='Refresh' content='0;url=form_usuario.php'>";
+					}else{
+						echo "<script> alert('El usuario que intenta ingresar se encuentra en estado INACTIVO') </script>";
+					}
+					
+				}				
 		
 	}else{
 		echo "<script> alert('Usuario o contraseña incorrecta') </script>";
 	}
+
+
+
+		}
+
+	}
+
+
+	
+
+
+
+	
+	
 
 }
 
@@ -66,7 +98,7 @@ if($accion=="ingreso"){
             </fieldset>
 
             <fieldset align="center">
-                <button name='btnIngresar' onClick="return validar();">Ingresar</button>
+                <button name='btnIngresar' onClick="return validar_ingreso();">Ingresar</button>
             </fieldset>
         </form>
     </div>

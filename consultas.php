@@ -1,3 +1,5 @@
+<script src="js/actualizar_usuario.js"></script>
+
 <?php
     class repositoriofunciones{
         public function consultaAlumnos(){
@@ -132,9 +134,10 @@
             include 'conexion.php';      
             
             $query = mysqli_query($conexion,
-            "select IFNULL(u.usuario_codigo,' ') as Usuario , ifnull(u.usuario_clave,' ') as Clave, 
+            "select IFNULL(u.usuario_codigo,' ') as Usuario , ifnull(u.usuario_clave,' ') as Clave,
+            u.usuario_clave_temporal as ClaveTemporal, u.usuario_estado as Estado,
             CONCAT(e.empleado_nombres,' ',e.empleado_primero_apellido, ' ', e.empleado_segundo_apellido) as Nombre_Completo 
-            from tbl_usuario u RIGHT JOIN tbl_empleado e on u.empleado_cedula = e.empleado_cedula"
+            from tbl_usuario2 u RIGHT JOIN tbl_empleado e on u.empleado_cedula = e.empleado_cedula"
             )or die('error: '.mysqli_error($conexion));           
                   
             echo "
@@ -159,7 +162,10 @@
                             <tr>
                                 <th scope='col'>Usuario</th>
                                 <th scope='col'>Clave</th>
+                                <th scope='col'>Clave Temporal</th>
                                 <th scope='col'>Nombre Completo</th>
+                                <th scope='col'>Estado</th>
+                                <th scope='col'>Modificar</th>
                             </tr>
                         </thead>
                         <tbody>      
@@ -171,7 +177,10 @@
                             <form  method='POST' name='form1'>
                                 <td>$data[Usuario]</td>
                                 <td>$data[Clave]</td>
+                                <td>$data[ClaveTemporal]</td>
                                 <td>$data[Nombre_Completo]</td>
+                                <td>$data[Estado]</td>
+                                <td align='center'><img src='img/modificar.png' onClick='return actualizar(\"".$data["Usuario"]."\")'></td>
                             </form>
                         </tr>
                 ";

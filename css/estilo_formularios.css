@@ -39,6 +39,8 @@ button{
     border: 1px solid;
     background-color: rgb(85, 178, 255);
     color: white;
+    margin-left: 50px;
+    justify-content: center;
 }
 button:hover{
     background-color: yellow;
